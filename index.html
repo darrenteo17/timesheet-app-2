@@ -8,57 +8,68 @@
 </head>
 <body>
 
-  <header>
-    <h1>Timesheet App</h1>
-    <select id="monthFilter"></select>
-  </header>
+<header>
+  <h1>Timesheet App</h1>
+  <select id="monthFilter"></select>
+</header>
 
-  <main>
-    <!-- Dashboard at the top -->
-    <div id="dashboard" class="dashboard">
-      <div class="dashboard-item"><p>Total Hours</p><p id="totalHours">0</p></div>
-      <div class="dashboard-item"><p>Total Gross</p><p>$<span id="totalGross">0</span></p></div>
-      <div class="dashboard-item"><p>Total Net</p><p>$<span id="totalNet">0</span></p></div>
-      <div class="dashboard-item"><p>Total CPF</p><p>$<span id="totalCPF">0</span></p></div>
-    </div>
+<main>
+  <!-- Dashboard -->
+  <div id="dashboard" class="dashboard">
+    <div class="dashboard-item"><p>Total Hours</p><p id="totalHours">0</p></div>
+    <div class="dashboard-item"><p>Total Gross</p><p>$<span id="totalGross">0</span></p></div>
+    <div class="dashboard-item"><p>Total Net</p><p>$<span id="totalNet">0</span></p></div>
+    <div class="dashboard-item"><p>Total CPF</p><p>$<span id="totalCPF">0</span></p></div>
+  </div>
 
-    <!-- Clear All button separated from dashboard -->
+  <!-- Clear All button -->
+  <div class="clear-container">
     <button id="clearAll">Clear All</button>
+  </div>
 
-    <!-- Entries container -->
-    <div id="entries"></div>
-  </main>
+  <!-- Entries container -->
+  <div id="entries"></div>
+</main>
 
-  <!-- Floating Action Button -->
-  <button id="fab" class="fab">+</button>
+<!-- Floating Action Button -->
+<button id="fab" class="fab">+</button>
 
-  <!-- Modal for adding/editing entry -->
-  <div id="entryModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 id="modalTitle">Add Entry</h2>
-      <form id="timesheetForm">
-        <label for="dateWorked">Date Worked:</label>
-        <input type="date" id="dateWorked" required>
+<!-- Modal for adding/editing entry -->
+<div id="entryModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalTitle">Add Entry</h2>
+    <form id="timesheetForm">
+      <div class="input-group">
+        <input type="date" id="dateWorked" placeholder=" " required>
+        <label for="dateWorked">Date Worked</label>
+      </div>
 
-        <label for="branch">Branch:</label>
+      <div class="input-group">
         <select id="branch" required>
+          <option value="" disabled selected hidden></option>
           <option value="Buangkok">Buangkok</option>
           <option value="Ang Mo Kio">Ang Mo Kio</option>
           <option value="Fernvale">Fernvale</option>
         </select>
+        <label for="branch">Branch</label>
+      </div>
 
-        <label for="timeIn">Time In:</label>
-        <input type="time" id="timeIn" required>
+      <div class="input-group">
+        <input type="time" id="timeIn" placeholder=" " required>
+        <label for="timeIn">Time In</label>
+      </div>
 
-        <label for="timeOut">Time Out:</label>
-        <input type="time" id="timeOut" required>
+      <div class="input-group">
+        <input type="time" id="timeOut" placeholder=" " required>
+        <label for="timeOut">Time Out</label>
+      </div>
 
-        <button type="submit">Add Entry</button>
-      </form>
-    </div>
+      <button type="submit">Add Entry</button>
+    </form>
   </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
