@@ -20,43 +20,51 @@ main {
   padding: 1rem;
 }
 
-/* Dashboard */
+/* Compact Dashboard */
 .dashboard {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   background: white;
-  padding: 0.5rem;          /* smaller padding */
+  padding: 0.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 0.5rem;    /* smaller spacing */
+  margin-bottom: 0.5rem;
 }
 
 .dashboard-item {
   flex: 1 1 45%;
   background: #f0f8ff;
   text-align: center;
-  padding: 0.5rem;          /* smaller padding */
+  padding: 0.3rem;
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  font-size: 0.9rem;        /* slightly smaller text */
+  font-size: 0.85rem;
 }
 
-/* Clear All button */
+/* Clear All container */
+.clear-container {
+  margin-bottom: 0.5rem;
+}
+
 #clearAll {
   background: #ff4d4f;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.6rem;
   border-radius: 6px;
   cursor: pointer;
-  margin: 0.5rem 0;         /* separate from dashboard */
-  display: block;
-  width: 100%;
   font-weight: bold;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: box-shadow 0.2s ease;
 }
 
-/* Month group */
+#clearAll:active {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2) inset;
+}
+
+/* Month cards */
 .month-card {
   background: white;
   margin-bottom: 1rem;
@@ -74,21 +82,35 @@ main {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .entry-card {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-top: 1px solid #eee;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 0.85rem;
+}
+
+.entry-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .entry-buttons button {
-  margin-right: 0.5rem;
+  margin-right: 0.4rem;
   background: #1e90ff;
   color: white;
   border: none;
-  padding: 0.3rem 0.6rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  font-size: 0.75rem;
+}
+
+.entry-buttons button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .entry-buttons button:last-child {
@@ -98,18 +120,23 @@ main {
 /* Floating Action Button */
 .fab {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 60px;
-  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   background-color: #1e90ff;
   color: white;
-  font-size: 36px;
+  font-size: 32px;
   border: none;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   cursor: pointer;
   z-index: 1000;
+  overflow: hidden;
+}
+
+.fab:hover {
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
 }
 
 /* Modal */
@@ -123,20 +150,29 @@ main {
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: block;
+  opacity: 1;
 }
 
 .modal-content {
   background-color: #fff;
   margin: 60px auto;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
   width: 90%;
   max-width: 400px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-50px);
+  transition: transform 0.3s ease;
 }
 
-.modal-content h2 {
-  margin-top: 0;
+.modal.show .modal-content {
+  transform: translateY(0);
 }
 
 .close {
@@ -151,18 +187,77 @@ main {
   color: #000;
 }
 
-/* Form inside modal */
-.modal-content form {
-  display: flex;
-  flex-direction: column;
+/* Inputs and floating labels */
+.input-group {
+  position: relative;
+  margin-top: 0.8rem;
 }
 
-.modal-content label {
-  margin-top: 0.5rem;
-}
-
-.modal-content input, .modal-content select, .modal-content button {
-  margin-top: 0.25rem;
+.input-group input,
+.input-group select {
+  width: 100%;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #1e90ff;
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
+.input-group label {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.input-group input:focus + label,
+.input-group select:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group select:not([value=""]) + label {
+  top: -0.6rem;
+  left: 0.4rem;
+  font-size: 0.75rem;
+  color: #1e90ff;
+  background: white;
+  padding: 0 0.2rem;
+}
+
+.modal-content button {
+  margin-top: 1rem;
+  background: #1e90ff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 0.9rem;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.modal-content button:hover {
+  background: #187bcd;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Month card expand animation */
+.month-card .entry-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.month-card .entry-container.show {
+  max-height: 1000px;
+  opacity: 1;
 }
