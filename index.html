@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timesheet App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Timesheet App</h1>
+    <select id="monthFilter"></select>
+  </header>
+
+  <main>
+    <div id="entries"></div>
+    <div id="dashboard">
+      <p>Total Hours: <span id="totalHours">0</span></p>
+      <p>Total Gross: $<span id="totalGross">0</span></p>
+      <p>Total Net: $<span id="totalNet">0</span></p>
+      <p>Total CPF: $<span id="totalCPF">0</span></p>
+      <button id="clearAll">Clear All</button>
+    </div>
+  </main>
+
+  <!-- Floating Action Button -->
+  <button id="fab" class="fab">+</button>
+
+  <!-- Modal for adding/editing entry -->
+  <div id="entryModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle">Add Entry</h2>
+      <form id="timesheetForm">
+        <label for="dateWorked">Date Worked:</label>
+        <input type="date" id="dateWorked" required>
+
+        <label for="branch">Branch:</label>
+        <select id="branch" required>
+          <option value="Buangkok">Buangkok</option>
+          <option value="Ang Mo Kio">Ang Mo Kio</option>
+          <option value="Fernvale">Fernvale</option>
+        </select>
+
+        <label for="timeIn">Time In:</label>
+        <input type="time" id="timeIn" required>
+
+        <label for="timeOut">Time Out:</label>
+        <input type="time" id="timeOut" required>
+
+        <button type="submit">Add Entry</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
