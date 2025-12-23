@@ -231,3 +231,68 @@ fab.addEventListener("click",()=>{
 // Close modal
 closeModal.addEventListener("click",()=>{ modal.style.display="none"; });
 window.addEventListener("click",(e)=>{ if(e.target==modal) modal.style.display="none"; });
+
+// (All previous helper functions, FAB, modal code stays the same)
+
+// =====================
+// Render entries with collapsible months
+// =====================
+function renderEntries(filterMonth="all") {
+  const container=document.getElementById("entries");
+  container.innerHTML="";
+  let filteredEntries=entries;
+  if(filterMonth!=="all") filteredEntries=entries.filter(e=>e.month===filterMonth);
+
+  if(filteredEntries.length===0){ container.innerHTML="<p>No entries for this month.</p>"; updateDashboard(filteredEntries); return; }
+
+  const months={};
+  filteredEntries.forEach(e=>{ if(!months[e.month]) months[e.month]=[]; months[e.month].push(e); });
+
+  for(let month in months){
+    let monthHours=0, monthGross=0, monthNet=0, monthCPF=0;
+    months[month].forEach(e=>{ 
+      const h=parseFloat(e.hours.split("hrs")[0])+parseFloat(e.hours.split(" ")[1].replace("mins",""))/60;
+      monthHours+=h; monthGross+=parseFloat(e.gross); monthNet+=parseFloat(e.net); monthCPF+=parseFloat(e.cpf); 
+    });
+
+    // Month card
+    const monthCard=document.createElement("div");
+    monthCard.className="month-card";
+
+    const monthHeader=document.createElement("div");
+    monthHeader.className="month-header";
+    monthHeader.textContent=`${month} — Hours: ${monthHours.toFixed(2)}, Gross: $${monthGross.toFixed(2)}, Net: $${monthNet.toFixed(2)}, CPF: $${monthCPF.toFixed(2)}`;
+    monthCard.appendChild(monthHeader);
+
+    const entryContainer=document.createElement("div");
+    entryContainer.style.display="none"; // collapsed by default
+
+    months[month].forEach(e=>{
+      const entryCard=document.createElement("div");
+      entryCard.className="entry-card";
+      entryCard.innerHTML=`
+        <p><strong>${e.displayDate}</strong> (${e.day})</p>
+        <p><strong>Branch:</strong> ${e.branch}</p>
+        <p><strong>Time:</strong> ${e.timeIn} – ${e.timeOut}</p>
+        <p><strong>Total Hours:</strong> ${e.hours}</p>
+        <p><strong>Gross:</strong> $${e.gross} | <strong>Net:</strong> $${e.net} | <strong>CPF:</strong> $${e.cpf}</p>
+        <div class="entry-buttons">
+          <button onclick="editEntry(${entries.indexOf(e)})">Edit</button>
+          <button onclick="deleteEntry(${entries.indexOf(e)})">Delete</button>
+        </div>
+      `;
+      entryContainer.appendChild(entryCard);
+    });
+
+    monthCard.appendChild(entryContainer);
+    container.appendChild(monthCard);
+
+    // Toggle collapse
+    monthHeader.addEventListener("click", ()=>{
+      entryContainer.style.display = entryContainer.style.display==="none"?"block":"none";
+    });
+  }
+
+  updateDashboard(filteredEntries);
+}
+
