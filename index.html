@@ -14,14 +14,17 @@
   </header>
 
   <main>
-    <div id="entries"></div>
-    <div id="dashboard">
-      <p>Total Hours: <span id="totalHours">0</span></p>
-      <p>Total Gross: $<span id="totalGross">0</span></p>
-      <p>Total Net: $<span id="totalNet">0</span></p>
-      <p>Total CPF: $<span id="totalCPF">0</span></p>
+    <!-- Dashboard at the top -->
+    <div id="dashboard" class="dashboard">
+      <div class="dashboard-item"><p>Total Hours</p><p id="totalHours">0</p></div>
+      <div class="dashboard-item"><p>Total Gross</p><p>$<span id="totalGross">0</span></p></div>
+      <div class="dashboard-item"><p>Total Net</p><p>$<span id="totalNet">0</span></p></div>
+      <div class="dashboard-item"><p>Total CPF</p><p>$<span id="totalCPF">0</span></p></div>
       <button id="clearAll">Clear All</button>
     </div>
+
+    <!-- Entries container -->
+    <div id="entries"></div>
   </main>
 
   <!-- Floating Action Button -->
