@@ -1,8 +1,9 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   padding: 0;
   background: #f4f4f4;
+  color: #333;
 }
 
 header {
@@ -12,31 +13,81 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 main {
   padding: 1rem;
 }
 
-#entries .entry-card {
+/* Dashboard */
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.dashboard-item {
+  flex: 1 1 45%;
+  background: #f0f8ff;
+  text-align: center;
   padding: 0.75rem;
-  margin-bottom: 0.75rem;
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+#clearAll {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+/* Month group */
+.month-card {
+  background: white;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.month-header {
+  background: #1e90ff;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.entry-card {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #eee;
 }
 
 .entry-buttons button {
   margin-right: 0.5rem;
+  background: #1e90ff;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* Dashboard */
-#dashboard {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-top: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.entry-buttons button:last-child {
+  background: #ff4d4f;
 }
 
 /* Floating Action Button */
@@ -51,14 +102,14 @@ main {
   color: white;
   font-size: 36px;
   border: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   cursor: pointer;
   z-index: 1000;
 }
 
 /* Modal */
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   z-index: 1001;
   left: 0;
